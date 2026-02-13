@@ -35,9 +35,23 @@ def greeting(name):
     print("hello " + name + ", let's get started!")
 \
 #code starts here
-welcomeuser() #displays welcome message check the function above
-print("Please enter your username:") #print message
+ #displays welcome message check the function above
+#print("Please enter your username:") #print message
 #username input
-username = getusername()# saves the resullt of getusername function to username variable
+# saves the resullt of getusername function to username variable
 #personalized greeting
+
+
+#get text from file
+def getArticleText():
+    f = open("files/article.txt", "r") #open the file in read mode
+    rawtext =f.read() #print the content of the file
+    f.close() #close the file
+    return rawtext.replace("\n", " " ). replace("\r", " " ) #return the text with newlines replaced by spaces
+
+welcomeuser()
+username = getusername()
 greeting(username)
+articleTextraw = getArticleText() #get article text from function
+print("GOT: ")
+print(articleTextraw) #print the article text
