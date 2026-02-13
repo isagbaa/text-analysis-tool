@@ -1,4 +1,5 @@
 from random_username.generate import generate_username
+from nltk.tokenize import sent_tokenize, word_tokenize
 #welcome message
 def welcomeuser():
     print("\n welcome to my Okj text analysis tool.")
@@ -49,9 +50,27 @@ def getArticleText():
     f.close() #close the file
     return rawtext.replace("\n", " " ). replace("\r", " " ) #return the text with newlines replaced by spaces
 
+#extract sentences from the text body 
+def tokenizesentences(rawtext):     
+    return sent_tokenize(rawtext) #tokenize the text into sentences using sent_tokenize function from nltk
+   
+   # extract words from list of sentences 
+def tokenizewords(sentences):
+   words = []
+   for sentence in sentences:
+       words.extend(word_tokenize(sentence)) #tokenize each sentence into words and add to the words list
+   return words #return the list of words
+#get user details and welcome them
 welcomeuser()
 username = getusername()
 greeting(username)
+
+#extract and tokenize article text
 articleTextraw = getArticleText() #get article text from function
+articlesentences = tokenizesentences(articleTextraw) #tokenize the article text into sentences
+articlewords = tokenizewords(articlesentences)
+
+#print for testing purposes
 print("GOT: ")
-print(articleTextraw) #print the article text
+print (articlewords)
+
