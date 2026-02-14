@@ -1,5 +1,6 @@
 from random_username.generate import generate_username
 from nltk.tokenize import sent_tokenize, word_tokenize
+import re
 #welcome message
 def welcomeuser():
     print("\n welcome to my Okj text analysis tool.")
@@ -60,6 +61,19 @@ def tokenizewords(sentences):
    for sentence in sentences:
        words.extend(word_tokenize(sentence)) #tokenize each sentence into words and add to the words list
    return words #return the list of words
+
+
+
+def extractkeysentences(sentences , searchpattern):
+    matchedsentences = []
+    for sentence in sentences:
+         #if matches desired pattern add to matchedsentences list
+        
+
+         if  re.search(searchpattern, sentence.lower()): #search for the pattern in the sentence using re.search function
+             matchedsentences.append(sentence)
+    return matchedsentences
+
 #get user details and welcome them
 welcomeuser()
 username = getusername()
@@ -70,7 +84,10 @@ articleTextraw = getArticleText() #get article text from function
 articlesentences = tokenizesentences(articleTextraw) #tokenize the article text into sentences
 articlewords = tokenizewords(articlesentences)
 
+stocksearchpattern = "[0-9] | [%$€£] |thousand|million|billion|trillion|profit|loss"
+keysentences = extractkeysentences(articlesentences , stocksearchpattern)
+
 #print for testing purposes
 print("GOT: ")
-print (articlewords)
+print (keysentences)
 
